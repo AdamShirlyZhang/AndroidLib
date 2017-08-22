@@ -1,1 +1,1 @@
-include ':desginpattern'
+include ':desginpattern', ':testapp', ':animation'

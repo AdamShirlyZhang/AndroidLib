@@ -16,4 +16,10 @@
         android:layout_height="wrap_content"
         android:text="仿微信登录弹出界面"/>
 
+    <Button
+        android:onClick="viewDispatch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="自定义view绘制顺序"/>
+
 </LinearLayout>

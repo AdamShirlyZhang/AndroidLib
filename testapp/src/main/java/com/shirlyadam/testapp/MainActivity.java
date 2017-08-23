@@ -1,12 +1,14 @@
 package com.shirlyadam.testapp;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,6 +16,9 @@ import android.view.MenuItem;
 import com.shirlyadam.animation.wechat.BottomToTopActivity;
 
 public class MainActivity extends AppCompatActivity {
+
+    private static final String TAG = MainActivity.class.getSimpleName();
+    private static boolean flag = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,11 +35,25 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        Log.d(TAG, "onCreate: " + flag);
+        flag = true;
+
     }
 
     public void jumpWechat(View view) {
-        startActivity(new Intent(this, BottomToTopActivity.class));
-        overridePendingTransition(R.anim.open_enter_anim, 0);
+        Intent intent = new Intent(this, BottomToTopActivity.class);
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
+            startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+        } else {
+            startActivity(intent);
+            overridePendingTransition(R.anim.open_enter_anim, 0);
+        }
+    }
+
+    public void viewDispatch(View view) {
+        Intent intent = new Intent(this, ViewDispatchActivity.class);
+        startActivity(intent);
     }
 
     @Override
